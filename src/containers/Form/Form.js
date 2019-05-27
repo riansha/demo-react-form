@@ -73,6 +73,7 @@ export default class Form extends Component {
     this.setState(state=>({
       ...state,
       data2:{
+        ...state.data2,
         [name]:{
           ...this.state.data2[name],
           value: value
@@ -179,7 +180,8 @@ export default class Form extends Component {
             </span>
           </div>
           <div className={classes.section}>
-            <p>error, return undefine di school waktu ketik</p>
+            {/* <p>error, return undefine di school waktu ketik</p> */}
+            <p>clear</p>
           </div>
         </form>
       </div>
