@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import classes from './Form.module.scss'
 
+import Input from '../../components/Input/Input'
+
 export default class Form extends Component {
   state = {
     dataForm : {
@@ -12,18 +14,24 @@ export default class Form extends Component {
       library: [
         { id: 1, name: "", address: "" , keeper: ""}
       ]
+    },
+    data2: {
+      newInput: {
+        elType : "input",
+        placeholder: "test",
+        value: ""
+      },
+      newInput2: {
+        elType : "input2",
+        placeholder: "test2",
+        value: ""
+      }
     }
   }
 
   changeHandler=(e, method, key, indexArray)=>{
     const name = e.target.name;
     const value = e.target.value;
-    console.log(name);
-    console.log(value);
-    console.log("method ", method);
-    console.log("key ", key);
-    console.log("index ", indexArray);
-    
     switch (method)
     {
       case 'single' :
@@ -54,13 +62,27 @@ export default class Form extends Component {
     }
   }
 
+  newHandler = (e) =>{
+    let name = e.target.name;
+    let value = e.target.value;
+    console.log(name);
+    console.log(value);
+    console.log(this.state.data2);
+    
+    
+    this.setState(state=>({
+      ...state,
+      data2:{
+        [name]:{
+          ...this.state.data2[name],
+          value: value
+        }
+      }
+    }))
+  }
+
   addField = (e, field)=>{
     e.preventDefault();
-    let index = this.state.dataForm.books.length - 1;
-    console.log(index);
-    console.log(field);
-    
-    
     let newArray = []
 
     switch(field)
@@ -149,7 +171,16 @@ export default class Form extends Component {
             <p>error, setelah ketik di field books dan library, button ga bsa di klik</p>
           </div>
 
-
+          <div className={classes.section}>
+            <h4>school</h4>
+            <span>
+              <Input data={this.state.data2} field="newInput" newHandler={this.newHandler} />
+              <Input data={this.state.data2} field="newInput2" newHandler={this.newHandler} />
+            </span>
+          </div>
+          <div className={classes.section}>
+            <p>error, return undefine di school waktu ketik</p>
+          </div>
         </form>
       </div>
     )
